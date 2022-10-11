@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roce_smartphoneapp/setting_page.dart';
+import 'package:fullscreen/fullscreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +15,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,6 +108,14 @@ class HomePage extends StatelessWidget {
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => new Size.fromHeight(50);
+  void enterFullScreen(FullScreenMode fullScreenMode) async {
+    await FullScreen.enterFullScreen(fullScreenMode);
+  }
+
+  void exitFullScreen() async {
+    await FullScreen.exitFullScreen();
+  }
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -116,7 +127,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: <Widget>[
         IconButton(
           icon: const Icon(Icons.fullscreen),
-          onPressed: () {},
+          onPressed: () async {
+            enterFullScreen(FullScreenMode.EMERSIVE);
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.fullscreen_exit),
+          onPressed: () async {
+            exitFullScreen();
+          },
         ),
         IconButton(
           icon: const Icon(Icons.settings),
