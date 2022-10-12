@@ -1,15 +1,21 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:roce_smartphoneapp/setting_page.dart';
 import 'package:fullscreen/fullscreen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+  // run app
+  runApp(MyApp());
+}
 
 //Variable
 bool fullscreanstatus = false;
 int _value = 50;
+int _rotateValue = 0;
 
 class MyApp extends StatelessWidget {
   @override
@@ -23,122 +29,16 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(),
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(
-                      left: 8.0,
-                      right: 8.0,
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.mic,
-                        ),
-                        Expanded(
-                          flex: 5,
-                          child: SoundSlider(),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(
-                      left: 8.0,
-                      right: 8.0,
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.volume_up,
-                        ),
-                        Expanded(
-                          flex: 5,
-                          child: SoundSlider(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      body: HomeBody(),
     );
   }
 }
 
+//APPBAR
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => new Size.fromHeight(50);
 
@@ -160,7 +60,10 @@ class _HomeAppBar extends State<HomeAppBar> {
     return AppBar(
       backgroundColor: Color(0xFF031319),
       leading: Container(
-        child: Image.asset('assets/logo.png'),
+        child: RotatedBox(
+          child: Image.asset('assets/logo.png'),
+          quarterTurns: _rotateValue,
+        ),
       ),
       title: Text('ROCE'),
       actions: <Widget>[
@@ -193,6 +96,131 @@ class _HomeAppBar extends State<HomeAppBar> {
   }
 }
 
+//BODY
+class HomeBody extends StatefulWidget {
+  @override
+  _HomeBody createState() => _HomeBody();
+}
+
+class _HomeBody extends State<HomeBody> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: Square(),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Square(),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: Square(),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Square(),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: Square(),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Square(),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: Square(),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Square(),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 8.0,
+                    right: 8.0,
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      RotatedBox(
+                        child: Icon(
+                          Icons.mic,
+                        ),
+                        quarterTurns: _rotateValue,
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: SoundSlider(),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 8.0,
+                    right: 8.0,
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      RotatedBox(
+                        child: Icon(
+                          Icons.volume_up,
+                        ),
+                        quarterTurns: _rotateValue,
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: SoundSlider(),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 //BUTTON SQUARE
 class Square extends StatefulWidget {
   @override
@@ -208,8 +236,11 @@ class _Square extends State<Square> {
         margin: const EdgeInsets.all(8.0),
         child: ButtonTheme(
           child: ElevatedButton(
-            child: Text("test"),
-            onPressed: () => null,
+            child: RotatedBox(
+              child: Text("test"),
+              quarterTurns: _rotateValue,
+            ),
+            onPressed: () => print(_rotateValue),
           ),
         ),
       ),
