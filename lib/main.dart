@@ -1,8 +1,14 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:roce_smartphoneapp/setting_page.dart';
 import 'package:fullscreen/fullscreen.dart';
 
 void main() => runApp(MyApp());
+
+//Variable
+bool fullscreanstatus = false;
 
 class MyApp extends StatelessWidget {
   @override
@@ -106,8 +112,14 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => new Size.fromHeight(50);
+
+  @override
+  _HomeAppBar createState() => _HomeAppBar();
+}
+
+class _HomeAppBar extends State<HomeAppBar> {
   void enterFullScreen(FullScreenMode fullScreenMode) async {
     await FullScreen.enterFullScreen(fullScreenMode);
   }
@@ -126,17 +138,20 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Text('ROCE'),
       actions: <Widget>[
         IconButton(
-          icon: const Icon(Icons.fullscreen),
-          onPressed: () async {
-            enterFullScreen(FullScreenMode.EMERSIVE);
-          },
-        ),
-        IconButton(
-          icon: const Icon(Icons.fullscreen_exit),
-          onPressed: () async {
-            exitFullScreen();
-          },
-        ),
+            icon: fullscreanstatus == true
+                ? Icon(Icons.fullscreen_exit)
+                : Icon(Icons.fullscreen),
+            onPressed: () async {
+              setState(() {
+                if (fullscreanstatus == false) {
+                  enterFullScreen(FullScreenMode.EMERSIVE);
+                  fullscreanstatus = true;
+                } else {
+                  exitFullScreen();
+                  fullscreanstatus = false;
+                }
+              });
+            }),
         IconButton(
           icon: const Icon(Icons.settings),
           onPressed: () {
@@ -155,11 +170,15 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 class Square extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
+    return ConstrainedBox(
+      constraints: const BoxConstraints.expand(),
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.blueAccent,
+        margin: const EdgeInsets.all(10.0),
+        child: ButtonTheme(
+          child: ElevatedButton(
+            child: Text("test"),
+            onPressed: () => null,
+          ),
         ),
       ),
     );
