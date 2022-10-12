@@ -9,6 +9,7 @@ void main() => runApp(MyApp());
 
 //Variable
 bool fullscreanstatus = false;
+int _value = 50;
 
 class MyApp extends StatelessWidget {
   @override
@@ -92,15 +93,41 @@ class HomePage extends StatelessWidget {
             ),
             Expanded(
               flex: 2,
-              child: Row(
+              child: Column(
                 children: <Widget>[
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
+                  Container(
+                    margin: const EdgeInsets.only(
+                      left: 8.0,
+                      right: 8.0,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.mic,
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: SoundSlider(),
+                        ),
+                      ],
+                    ),
                   ),
-                  Expanded(
-                    flex: 5,
-                    child: Square(),
+                  Container(
+                    margin: const EdgeInsets.only(
+                      left: 8.0,
+                      right: 8.0,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          Icons.volume_up,
+                        ),
+                        Expanded(
+                          flex: 5,
+                          child: SoundSlider(),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -167,13 +194,18 @@ class _HomeAppBar extends State<HomeAppBar> {
 }
 
 //BUTTON SQUARE
-class Square extends StatelessWidget {
+class Square extends StatefulWidget {
+  @override
+  _Square createState() => _Square();
+}
+
+class _Square extends State<Square> {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints.expand(),
       child: Container(
-        margin: const EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(8.0),
         child: ButtonTheme(
           child: ElevatedButton(
             child: Text("test"),
@@ -181,6 +213,30 @@ class Square extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+//SLIDER
+class SoundSlider extends StatefulWidget {
+  @override
+  _SoundSlider createState() => _SoundSlider();
+}
+
+class _SoundSlider extends State<SoundSlider> {
+  Widget build(BuildContext context) {
+    return Slider(
+      min: 0,
+      max: 100,
+      thumbColor: Color(0xFF031319),
+      inactiveColor: Color(0x88031319),
+      activeColor: Color(0xFF031319),
+      value: _value.toDouble(),
+      onChanged: (double newValue) {
+        setState(() {
+          _value = newValue.round();
+        });
+      },
     );
   }
 }
