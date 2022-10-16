@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sticky_headers/sticky_headers.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -39,38 +40,12 @@ class BodySetting extends StatelessWidget {
   }
 }
 
-class ConnectionSetting extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SettingsList(
-      sections: [
-        SettingsSection(
-          title: Text('Common'),
-          tiles: <SettingsTile>[
-            SettingsTile.navigation(
-              leading: Icon(Icons.language),
-              title: Text('Language'),
-              value: Text('English'),
-            ),
-            SettingsTile.switchTile(
-              onToggle: (value) {},
-              initialValue: true,
-              leading: Icon(Icons.format_paint),
-              title: Text('Enable custom theme'),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
 class test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      color: Colors.cyan,
+      color: Colors.blue,
     );
   }
 }
