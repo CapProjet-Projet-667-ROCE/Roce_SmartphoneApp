@@ -38,9 +38,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   animate_do: ^2.1.0
   fullscreen: ^1.0.3
-  sticky_headers: ^0.3.0+2
-  settings_ui: ^2.0.2
   flutter_settings_screens: ^0.2.2+1
+  settings_ui: ^2.0.2
 
 dev_dependencies:
   flutter_test:

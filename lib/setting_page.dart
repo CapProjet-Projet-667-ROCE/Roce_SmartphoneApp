@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:sticky_headers/sticky_headers.dart';
-import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+import 'package:settings_ui/settings_ui.dart';
 
-class SettingPage extends StatelessWidget {
-  const SettingPage({super.key});
+class SettingPage extends StatefulWidget {
+  @override
+  _SettingPage createState() => _SettingPage();
+}
+
+class _SettingPage extends State<SettingPage> {
+  bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
+    final children = <Widget>[const SizedBox(width: double.infinity)];
+
     return Scaffold(
       appBar: SettingAppBar(),
-      body: SingleChildScrollView(
-        child: BodySetting(),
+      body: Column(
+        children: [
+          CommonSetting(),
+          DropDownSettingsTile(
+            title: 'Rotation',
+            selected: 1,
+            values: <int, String>{
+              1: 'vertical',
+              2: 'horizontal',
+            },
+          ),
+        ],
       ),
     );
   }
@@ -28,34 +44,41 @@ class SettingAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 }
 
-class BodySetting extends StatelessWidget {
+class CommonSetting extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        test(),
-        test_(),
-      ],
-    );
-  }
+  _CommonSetting createState() => _CommonSetting();
 }
 
-class test extends StatelessWidget {
+class _CommonSetting extends State<CommonSetting> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
-      color: Colors.blue,
-    );
-  }
-}
-
-class test_ extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 2000,
-      color: Colors.red,
+      padding: EdgeInsets.all(10),
+      child: SettingsList(
+        sections: [
+          SettingsSection(
+            title: Text('Common'),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: Icon(Icons.language),
+                title: Text('Language'),
+                value: Text('English'),
+              ),
+              SettingsTile.navigation(
+                leading: Icon(Icons.info),
+                title: Text('Version'),
+                value: Text('0.0.1 BETA'),
+              ),
+              SettingsTile.switchTile(
+                onToggle: (value) {},
+                initialValue: true,
+                leading: Icon(Icons.dark_mode_outlined),
+                title: Text('Enable custom theme'),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
