@@ -7,14 +7,22 @@ import 'package:flutter/services.dart';
 import 'package:fullscreen/fullscreen.dart';
 import 'package:roce_smartphoneapp/parser/slider.dart';
 import 'package:roce_smartphoneapp/parser/square.dart';
+import 'package:roce_smartphoneapp/setting.dart';
+import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 void main() {
+  initSettings();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   // run app
   runApp(MyApp());
+}
+
+void initSettings() {
+  SharePreferenceCache spCache = SharePreferenceCache()..init();
+  Settings.init(cacheProvider: spCache);
 }
 
 //Variable
@@ -120,7 +128,12 @@ class _HomeAppBar extends State<HomeAppBar> {
             }),
         IconButton(
           icon: const Icon(Icons.settings),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SettingPage()),
+            );
+          },
         ),
       ],
     );
