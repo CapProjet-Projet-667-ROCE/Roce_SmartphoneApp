@@ -1,12 +1,12 @@
 import 'dart:math';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fullscreen/fullscreen.dart';
 import 'package:roce_smartphoneapp/parser/slider.dart';
 import 'package:roce_smartphoneapp/parser/square.dart';
-import 'dart:io';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,29 +29,29 @@ int colorThumbColor2 = 0xFF031319;
 int colorInactiveColor2 = 0x88031319;
 int colorActiveColor2 = 0xFF031319;
 //Square 1
-int colorBackground1 = 0xFF00940f;
-String textOfSquare1 = "Square 1";
+int colorBackground1 = 0xFF031319;
+String textOfSquare1 = "Preview";
 //Square 2
-int colorBackground2 = 0xFF299DDD;
-String textOfSquare2 = "Square 2";
+int colorBackground2 = 0xFF031319;
+String textOfSquare2 = "Next";
 //Square 3
-int colorBackground3 = 0xFF8E8151;
-String textOfSquare3 = "Square 3";
+int colorBackground3 = 0xFF81b71a;
+String textOfSquare3 = "Play/Pause";
 //Square 4
-int colorBackground4 = 0xFF031319;
-String textOfSquare4 = "Square 4";
+int colorBackground4 = 0xFF2a86cf;
+String textOfSquare4 = "Lock";
 //Square 5
 int colorBackground5 = 0xFF031319;
-String textOfSquare5 = "Square 5";
+String textOfSquare5 = "Win+G";
 //Square 6
 int colorBackground6 = 0x88031319;
-String textOfSquare6 = "Square 6";
+String textOfSquare6 = "Muet/Demuet";
 //Square 7
-int colorBackground7 = 0x88ACD934;
-String textOfSquare7 = "Square 7";
+int colorBackground7 = 0xFF031319;
+String textOfSquare7 = "Volume +";
 //Square 8
-int colorBackground8 = 0x88031319;
-String textOfSquare8 = "Square 8";
+int colorBackground8 = 0xFF031319;
+String textOfSquare8 = "Volume -";
 
 class MyApp extends StatelessWidget {
   @override

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.roce_mobil_app">
+    package="com.example.roseproject">
    <application
-        android:label="roce_mobil_app"
+        android:label="roseproject"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
