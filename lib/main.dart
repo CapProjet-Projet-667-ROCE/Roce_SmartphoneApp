@@ -112,6 +112,10 @@ class _HomeAppBar extends State<HomeAppBar> {
       title: Text('ROCE'),
       actions: <Widget>[
         IconButton(
+          icon: Icon(Icons.replay_outlined),
+          onPressed: () async {},
+        ),
+        IconButton(
             icon: fullscreanstatus == true
                 ? Icon(Icons.fullscreen_exit)
                 : Icon(Icons.fullscreen),
