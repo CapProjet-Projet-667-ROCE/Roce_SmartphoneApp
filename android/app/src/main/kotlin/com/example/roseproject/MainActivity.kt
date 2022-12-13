@@ -1,4 +1,4 @@
-package com.example.roce_mobil_app
+package com.example.roseproject
 
 import io.flutter.embedding.android.FlutterActivity
 
