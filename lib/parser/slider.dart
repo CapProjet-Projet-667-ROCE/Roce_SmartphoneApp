@@ -30,11 +30,12 @@ class _SoundSlider extends State<SoundSlider> {
       value: _value.toDouble(),
       onChanged: (double newValue) {
         setState(() {
-          _value = newValue.round();
-          sendMessage(
-              widget.socket, widget.id + ':' + _value.toString() + '\n');
-          debugPrint('id: ' + widget.id + ' value: ' + _value.toString());
-          print(_value);
+          if (_value != newValue.round()) {
+            _value = newValue.round();
+            sendMessage(
+                widget.socket, widget.id + ':' + _value.toString() + '\n');
+            debugPrint('id: ' + widget.id + ' value: ' + _value.toString());
+          }
         });
       },
     );

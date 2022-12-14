@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,9 @@ import 'package:roce_smartphoneapp/home.dart';
 
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
+final String _addrIp = '192.168.1.19';
+final int _port = 12137;
+
 void main() async {
   initSettings();
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,13 +17,22 @@ void main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   //connexion
-  String addrIp = 'google.com';
-  int port = 80;
-  Socket socket = await Socket.connect(addrIp, port);
+  ConnectSocket connect = ConnectSocket(_addrIp, _port);
+  Socket socket = await connect.connexion();
   print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
 
   // run app
   runApp(MyApp(socket));
+}
+
+class ConnectSocket {
+  String addrIp;
+  int port;
+  ConnectSocket(this.addrIp, this.port);
+  connexion() async {
+    var socket = await Socket.connect(addrIp, port);
+    return socket;
+  }
 }
 
 void sendMessage(Socket socket, String message) async {
