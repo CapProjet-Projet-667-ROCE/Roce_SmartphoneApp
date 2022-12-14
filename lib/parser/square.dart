@@ -29,7 +29,7 @@ class _Square extends State<Square> {
               quarterTurns: _rotateValue,
             ),
             onPressed: () async {
-              sendMessage(widget.socket, widget.id);
+              sendMessage(widget.socket, widget.id + '\n');
               debugPrint('id: ' + widget.id);
             },
             style: ElevatedButton.styleFrom(

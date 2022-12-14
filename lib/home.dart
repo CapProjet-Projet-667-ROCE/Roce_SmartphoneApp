@@ -220,7 +220,7 @@ class _HomeBody extends State<HomeBody> {
                       ),
                       Expanded(
                         flex: 5,
-                        child: SoundSlider(colorThumbColor1,
+                        child: SoundSlider(widget.socket, '8', colorThumbColor1,
                             colorInactiveColor1, colorActiveColor1),
                       ),
                     ],
@@ -241,7 +241,7 @@ class _HomeBody extends State<HomeBody> {
                       ),
                       Expanded(
                         flex: 5,
-                        child: SoundSlider(colorThumbColor2,
+                        child: SoundSlider(widget.socket, '9', colorThumbColor2,
                             colorInactiveColor2, colorActiveColor2),
                       ),
                     ],
