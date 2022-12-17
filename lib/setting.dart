@@ -1,19 +1,26 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:dart_ipify/dart_ipify.dart';
+import 'package:roce_smartphoneapp/main.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
 class SettingPage extends StatelessWidget {
-  const SettingPage({key});
+  ConnectConfig config;
+  Future<Socket?> socket;
+  SettingPage(this.socket, this.config);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SettingAppBar(),
-      body: SettingBody(),
+      body: SettingBody(socket, config),
     );
   }
 }
 
 class SettingBody extends StatefulWidget {
+  ConnectConfig config;
+  Future<Socket?> socket;
+  SettingBody(this.socket, this.config);
   @override
   _SettingBody createState() => _SettingBody();
 }
@@ -40,6 +47,10 @@ class _SettingBody extends State<SettingBody> {
                 borderColor: Colors.blueAccent,
                 errorColor: Colors.deepOrangeAccent,
                 onChange: (value) {
+                  setState(() {
+                    widget.config.changeIp(value);
+                    widget.socket = socketConnect(widget.config);
+                  });
                   keyIpDesktop = value;
                   debugPrint('key-connexion-desktop: $keyIpDesktop');
                 },
@@ -51,9 +62,15 @@ class _SettingBody extends State<SettingBody> {
                 borderColor: Colors.blueAccent,
                 errorColor: Colors.deepOrangeAccent,
                 onChange: (value) {
+                  setState(() {
+                    widget.config.changePort(value);
+                    widget.socket = socketConnect(widget.config);
+                  });
                   keyPort1Desktop = value;
                   debugPrint('key-connexion-desktop: $keyPort1Desktop');
                 },
+                validator: (port1) =>
+                    port1 != null ? null : 'Enter correct port',
               ),
               TextInputSettingsTile(
                 title: 'Port Two desktop',
@@ -62,9 +79,12 @@ class _SettingBody extends State<SettingBody> {
                 borderColor: Colors.blueAccent,
                 errorColor: Colors.deepOrangeAccent,
                 onChange: (value) {
+                  setState(() {});
                   keyPort2Desktop = value;
                   debugPrint('key-port2-desktop: $keyPort2Desktop');
                 },
+                validator: (port2) =>
+                    port2 != null ? null : 'Enter correct port',
               ),
               SimpleDropDownSettingsTile(
                 title: 'Connexion with desktop',

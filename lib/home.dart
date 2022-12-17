@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fullscreen/fullscreen.dart';
+import 'package:roce_smartphoneapp/main.dart';
 import 'package:roce_smartphoneapp/parser/slider.dart';
 import 'package:roce_smartphoneapp/parser/square.dart';
 import 'package:roce_smartphoneapp/setting.dart';
@@ -44,13 +45,14 @@ int colorBackground8 = 0xFF031319;
 String textOfSquare8 = "Volume -";
 
 class HomePage extends StatelessWidget {
-  final Socket socket;
+  HomePage({Key? key}) : super(key: key);
+  ConnectConfig config = ConnectConfig('google.com', 80);
+  Future<Socket> get socket => socketConnect(config);
 
-  const HomePage(this.socket);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(),
+      appBar: HomeAppBar(socket, config),
       body: HomeBody(socket),
     );
   }
@@ -58,6 +60,10 @@ class HomePage extends StatelessWidget {
 
 //APPBAR
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
+  ConnectConfig config;
+  Future<Socket?> socket;
+  HomeAppBar(this.socket, this.config);
+
   Size get preferredSize => new Size.fromHeight(50);
 
   @override
@@ -87,7 +93,11 @@ class _HomeAppBar extends State<HomeAppBar> {
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.replay_outlined),
-          onPressed: () async {},
+          onPressed: () {
+            setState(() {
+              widget.socket = socketConnect(widget.config);
+            });
+          },
         ),
         IconButton(
             icon: fullscreanstatus == true
@@ -109,7 +119,9 @@ class _HomeAppBar extends State<HomeAppBar> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SettingPage()),
+              MaterialPageRoute(
+                  builder: (context) =>
+                      SettingPage(widget.socket, widget.config)),
             );
           },
         ),
@@ -120,9 +132,9 @@ class _HomeAppBar extends State<HomeAppBar> {
 
 //BODY
 class HomeBody extends StatefulWidget {
-  final Socket socket;
+  Future<Socket> socket;
+  HomeBody(this.socket);
 
-  const HomeBody(this.socket);
   @override
   _HomeBody createState() => _HomeBody();
 }
