@@ -10,7 +10,7 @@ class SoundSlider extends StatefulWidget {
   final int colorThumbColor;
   final int colorInactiveColor;
   final int colorActiveColor;
-  final Future<Socket> socket;
+  final Future<Socket?> socket;
 
   const SoundSlider(this.socket, this.id, this.colorThumbColor,
       this.colorInactiveColor, this.colorActiveColor);
@@ -32,7 +32,7 @@ class _SoundSlider extends State<SoundSlider> {
         setState(() async {
           if (_value != newValue.round()) {
             _value = newValue.round();
-            Socket mysocket = await widget.socket;
+            Socket? mysocket = await widget.socket;
             sendMessage(mysocket, widget.id + ':' + _value.toString() + '\n');
             debugPrint('id: ' + widget.id + ' value: ' + _value.toString());
           }

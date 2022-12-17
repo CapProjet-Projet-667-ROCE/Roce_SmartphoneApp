@@ -8,7 +8,7 @@ class Square extends StatefulWidget {
   final String id;
   final int colorBackground;
   final String textOfSquare;
-  final Future<Socket> socket;
+  final Future<Socket?> socket;
 
   const Square(this.socket, this.id, this.colorBackground, this.textOfSquare);
   @override
@@ -29,7 +29,7 @@ class _Square extends State<Square> {
               quarterTurns: _rotateValue,
             ),
             onPressed: () async {
-              Socket mysocket = await widget.socket;
+              Socket? mysocket = await widget.socket;
               sendMessage(mysocket, widget.id + '\n');
               debugPrint('id: ' + widget.id);
             },

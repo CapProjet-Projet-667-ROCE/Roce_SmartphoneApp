@@ -47,7 +47,8 @@ String textOfSquare8 = "Volume -";
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   ConnectConfig config = ConnectConfig('google.com', 80);
-  Future<Socket> get socket => socketConnect(config);
+
+  Future<Socket?> get socket => socketConnect(config);
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +133,7 @@ class _HomeAppBar extends State<HomeAppBar> {
 
 //BODY
 class HomeBody extends StatefulWidget {
-  Future<Socket> socket;
+  Future<Socket?> socket;
   HomeBody(this.socket);
 
   @override

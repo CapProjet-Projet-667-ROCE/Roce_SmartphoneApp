@@ -32,18 +32,29 @@ class ConnectConfig {
   }
 }
 
-Future<Socket> socketConnect(ConnectConfig config) async {
+Future<Socket?> socketConnect(ConnectConfig config) async {
   String addrIp = config.addrIp;
   int port = config.port;
-  Socket socket = await Socket.connect(addrIp, port);
-  print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
-  return socket;
+  try {
+    Socket socket = await Socket.connect(addrIp, port);
+    print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
+    return socket;
+  } catch (e) {
+    Socket socket = await Socket.connect('google.com', 80);
+    print('Can\'t connect to: ${addrIp}:${port}');
+    DialogExample();
+  }
 }
 
-void sendMessage(Socket socket, String message) async {
+void sendMessage(Socket? socket, String message) async {
   print('Client: $message');
-  socket.write(message);
-  await Future.delayed(Duration(seconds: 2));
+  try {
+    Socket mysocket = socket as Socket;
+    mysocket.write(message);
+    await Future.delayed(Duration(seconds: 2));
+  } catch (e) {
+    DialogExample();
+  }
 }
 
 void initSettings() {
@@ -56,6 +67,26 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       home: HomePage(),
+    );
+  }
+}
+
+class DialogExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('AlertDialog Title'),
+      content: const Text('AlertDialog description'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'OK'),
+          child: const Text('OK'),
+        ),
+      ],
     );
   }
 }
