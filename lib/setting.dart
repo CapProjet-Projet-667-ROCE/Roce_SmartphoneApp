@@ -17,6 +17,22 @@ class SettingPage extends StatelessWidget {
   }
 }
 
+class SettingAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const SettingAppBar({key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(50);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      backgroundColor: const Color(0xFF031319),
+      title: const Text('Settings'),
+      centerTitle: true,
+    );
+  }
+}
+
 class SettingBody extends StatefulWidget {
   ConnectConfig config;
   Future<Socket?> socket;
@@ -33,8 +49,9 @@ class _SettingBody extends State<SettingBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: <Widget>[
         Container(
           height: 600,
           child: SettingsGroup(
@@ -48,8 +65,8 @@ class _SettingBody extends State<SettingBody> {
                 errorColor: Colors.deepOrangeAccent,
                 onChange: (value) {
                   setState(() {
-                    widget.config.changeIp(value);
-                    widget.socket = socketConnect(widget.config);
+                    widget.config.setIp(value);
+                    widget.socket = socketConnect(widget.config, context);
                   });
                   keyIpDesktop = value;
                   debugPrint('key-connexion-desktop: $keyIpDesktop');
@@ -63,8 +80,8 @@ class _SettingBody extends State<SettingBody> {
                 errorColor: Colors.deepOrangeAccent,
                 onChange: (value) {
                   setState(() {
-                    widget.config.changePort(value);
-                    widget.socket = socketConnect(widget.config);
+                    widget.config.setPort1(value);
+                    widget.socket = socketConnect(widget.config, context);
                   });
                   keyPort1Desktop = value;
                   debugPrint('key-connexion-desktop: $keyPort1Desktop');
@@ -103,22 +120,6 @@ class _SettingBody extends State<SettingBody> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class SettingAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const SettingAppBar({key});
-
-  @override
-  Size get preferredSize => const Size.fromHeight(50);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: const Color(0xFF031319),
-      title: const Text('Settings'),
-      centerTitle: true,
     );
   }
 }

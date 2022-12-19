@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   ConnectConfig config = ConnectConfig('google.com', 80);
 
-  Future<Socket?> get socket => socketConnect(config);
+  Future<Socket?> get socket => Socket.connect(config.addrIp, config.port1);
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +96,7 @@ class _HomeAppBar extends State<HomeAppBar> {
           icon: Icon(Icons.replay_outlined),
           onPressed: () {
             setState(() {
-              widget.socket = socketConnect(widget.config);
+              widget.socket = socketConnect(widget.config, context);
             });
           },
         ),

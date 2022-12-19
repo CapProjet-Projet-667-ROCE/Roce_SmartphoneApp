@@ -17,32 +17,49 @@ void main() async {
   runApp(MyApp());
 }
 
-class ConnectConfig {
-  String addrIp;
-  int port;
-  ConnectConfig(this.addrIp, this.port);
-
-  void changeIp(String _addrIp) {
-    addrIp = _addrIp;
-  }
-
-  void changePort(String _port) {
-    int a = int.parse(_port);
-    port = a;
+class MyApp extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      home: HomePage(),
+    );
   }
 }
 
-Future<Socket?> socketConnect(ConnectConfig config) async {
+class ConnectConfig {
+  String addrIp;
+  int port1;
+  int port2 = 21345;
+  ConnectConfig(this.addrIp, this.port1);
+
+  void setIp(String _addrIp) {
+    addrIp = _addrIp;
+  }
+
+  void setPort1(String _port) {
+    int a = int.parse(_port);
+    port1 = a;
+  }
+
+  void setPort2(String _port) {
+    int a = int.parse(_port);
+    port2 = a;
+  }
+}
+
+Future<Socket?> socketConnect(
+    ConnectConfig config, BuildContext context) async {
   String addrIp = config.addrIp;
-  int port = config.port;
+  int port = config.port1;
   try {
     Socket socket = await Socket.connect(addrIp, port);
     print('Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
     return socket;
   } catch (e) {
-    Socket socket = await Socket.connect('google.com', 80);
+    showAlertDialog(context, addrIp, port);
+    print(e);
     print('Can\'t connect to: ${addrIp}:${port}');
-    DialogExample();
+    return null;
   }
 }
 
@@ -53,7 +70,8 @@ void sendMessage(Socket? socket, String message) async {
     mysocket.write(message);
     await Future.delayed(Duration(seconds: 2));
   } catch (e) {
-    DialogExample();
+    print(e);
+    print('Can\'t send message: $message');
   }
 }
 
@@ -62,31 +80,29 @@ void initSettings() {
   Settings.init(cacheProvider: spCache);
 }
 
-class MyApp extends StatelessWidget {
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: HomePage(),
-    );
-  }
-}
+showAlertDialog(BuildContext context, String addrIp, int port1) {
+  // set up the button
+  Widget okButton = TextButton(
+    child: Text("OK"),
+    onPressed: () {
+      Navigator.of(context).pop();
+    },
+  );
 
-class DialogExample extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('AlertDialog Title'),
-      content: const Text('AlertDialog description'),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'Cancel'),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
-          child: const Text('OK'),
-        ),
-      ],
-    );
-  }
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("Cannot connect."),
+    content: Text("Failed to connect to $addrIp:$port1"),
+    actions: [
+      okButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
