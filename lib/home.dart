@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fullscreen/fullscreen.dart';
-import 'package:roce_smartphoneapp/main.dart';
 import 'package:roce_smartphoneapp/parser/slider.dart';
 import 'package:roce_smartphoneapp/parser/square.dart';
 import 'package:roce_smartphoneapp/setting.dart';
+import 'package:roce_smartphoneapp/connexion.dart';
 
 //Variable
 bool fullscreanstatus = false;
@@ -46,8 +46,8 @@ String textOfSquare8 = "Volume -";
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
-  ConnectConfig config = ConnectConfig('google.com', 80);
 
+  ConnectConfig config = ConnectConfig("google.com", 80, 8000);
   Future<Socket?> get socket => Socket.connect(config.addrIp, config.port1);
 
   @override

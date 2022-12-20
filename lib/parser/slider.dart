@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:roce_smartphoneapp/main.dart';
+import 'package:roce_smartphoneapp/connexion.dart';
 
 int _value = 50;
 

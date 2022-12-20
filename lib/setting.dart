@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:roce_smartphoneapp/main.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
+
+import 'package:roce_smartphoneapp/connexion.dart';
 
 class SettingPage extends StatelessWidget {
   ConnectConfig config;
@@ -18,7 +19,7 @@ class SettingPage extends StatelessWidget {
 }
 
 class SettingAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const SettingAppBar({key});
+  SettingAppBar({Key? key}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
@@ -117,6 +118,15 @@ class _SettingBody extends State<SettingBody> {
                 },
               ),
             ],
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.all(8.0),
+          child: ButtonTheme(
+            child: ElevatedButton(
+              child: Text("Info"),
+              onPressed: () async {},
+            ),
           ),
         ),
       ],
