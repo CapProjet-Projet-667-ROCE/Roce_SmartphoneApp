@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fullscreen/fullscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:roce_smartphoneapp/main.dart';
 import 'package:roce_smartphoneapp/parser/slider.dart';
 import 'package:roce_smartphoneapp/parser/square.dart';
 import 'package:roce_smartphoneapp/setting.dart';
@@ -11,6 +14,8 @@ import 'package:roce_smartphoneapp/connexion.dart';
 bool fullscreanstatus = false;
 int _rotateValue = 0;
 int get rotateValue => _rotateValue;
+//Connexion
+
 //Slider 1
 int colorThumbColor1 = 0xFF031319;
 int colorInactiveColor1 = 0x88031319;
@@ -47,11 +52,10 @@ String textOfSquare8 = "Volume -";
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  ConnectConfig config = ConnectConfig("google.com", 80, 8000);
-  Future<Socket?> get socket => Socket.connect(config.addrIp, config.port1);
-
   @override
   Widget build(BuildContext context) {
+    ConnectConfig config = ConnectConfig("google.com", 80, 8000);
+    Future<Socket?> socket = config.socketConnect(context);
     return Scaffold(
       appBar: HomeAppBar(socket, config),
       body: HomeBody(socket),
@@ -96,7 +100,7 @@ class _HomeAppBar extends State<HomeAppBar> {
           icon: Icon(Icons.replay_outlined),
           onPressed: () {
             setState(() {
-              widget.socket = socketConnect(widget.config, context);
+              widget.socket = widget.config.socketConnect(context);
             });
           },
         ),

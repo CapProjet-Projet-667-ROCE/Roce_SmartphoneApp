@@ -60,14 +60,14 @@ class _SettingBody extends State<SettingBody> {
             children: <Widget>[
               TextInputSettingsTile(
                 title: 'Ip address desktop',
-                settingKey: 'key-ip-desktop',
+                settingKey: widget.config.addrIp,
                 initialValue: '192.161.1.', //Affichage VS valeur
                 borderColor: Colors.blueAccent,
                 errorColor: Colors.deepOrangeAccent,
                 onChange: (value) {
                   setState(() {
                     widget.config.setIp(value);
-                    widget.socket = socketConnect(widget.config, context);
+                    widget.socket = widget.config.socketConnect(context);
                   });
                   keyIpDesktop = value;
                   debugPrint('key-connexion-desktop: $keyIpDesktop');
@@ -75,14 +75,14 @@ class _SettingBody extends State<SettingBody> {
               ),
               TextInputSettingsTile(
                 title: 'Port One desktop',
-                settingKey: 'key-port1-desktop',
+                settingKey: widget.config.addrIp,
                 initialValue: '0000',
                 borderColor: Colors.blueAccent,
                 errorColor: Colors.deepOrangeAccent,
                 onChange: (value) {
                   setState(() {
                     widget.config.setPort1(value);
-                    widget.socket = socketConnect(widget.config, context);
+                    widget.socket = widget.config.socketConnect(context);
                   });
                   keyPort1Desktop = value;
                   debugPrint('key-connexion-desktop: $keyPort1Desktop');
@@ -92,7 +92,7 @@ class _SettingBody extends State<SettingBody> {
               ),
               TextInputSettingsTile(
                 title: 'Port Two desktop',
-                settingKey: 'key-port2-desktop',
+                settingKey: widget.config.addrIp,
                 initialValue: '0000',
                 borderColor: Colors.blueAccent,
                 errorColor: Colors.deepOrangeAccent,

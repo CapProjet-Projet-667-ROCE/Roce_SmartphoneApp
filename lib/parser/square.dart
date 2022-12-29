@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:roce_smartphoneapp/connexion.dart';
 
@@ -29,9 +30,13 @@ class _Square extends State<Square> {
               quarterTurns: _rotateValue,
             ),
             onPressed: () async {
-              Socket? mysocket = await widget.socket;
-              sendMessage(mysocket, widget.id + '\n');
-              debugPrint('id: ' + widget.id);
+              try {
+                Socket? mysocket = await widget.socket;
+                sendMessage(mysocket, widget.id + '\n');
+                debugPrint('id: ' + widget.id);
+              } catch (e) {
+                print(e);
+              }
             },
             style: ElevatedButton.styleFrom(
               primary: Color(widget.colorBackground),
