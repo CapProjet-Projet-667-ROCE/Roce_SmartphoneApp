@@ -7,20 +7,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   initSettings();
-  sharedPrefInit();
+  SharedPreferences prefs = await sharedPrefInit();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   // run app
-  runApp(MyApp());
+  runApp(MyApp(prefs));
 }
 
 class MyApp extends StatelessWidget {
+  SharedPreferences prefs;
+  MyApp(this.prefs);
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: HomePage(),
+      home: HomePage(prefs),
     );
   }
 }
@@ -30,7 +33,7 @@ void initSettings() {
   Settings.init(cacheProvider: spCache);
 }
 
-void sharedPrefInit() async {
+Future<SharedPreferences> sharedPrefInit() async {
   try {
     /// Checks if shared preference exist
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -38,14 +41,16 @@ void sharedPrefInit() async {
     prefs.getString("addrIp");
     prefs.getInt("port1");
     prefs.getInt("port2");
+    return prefs;
   } catch (err) {
     /// setMockInitialValues initiates shared preference
     /// Adds app-name
     SharedPreferences.setMockInitialValues({});
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
-    prefs.setString("app-name", "localhost");
+    prefs.setString("addrIp", "localhost");
     prefs.setInt("port1", 80);
     prefs.setInt("port2", 8080);
+    return prefs;
   }
 }

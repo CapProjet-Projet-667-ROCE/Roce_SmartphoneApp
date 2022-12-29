@@ -6,53 +6,48 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConnectConfig {
-  late String addrIp;
-  late int port1;
-  late int port2;
-  ConnectConfig(this.addrIp, this.port1, this.port2);
-  ConnectConfig.fromPreference() {
-    addrIp = getIpValue();
-    port1 = getPort1Value();
-    port2 = getPort2Value();
-  }
+  SharedPreferences prefs;
+  ConnectConfig(this.prefs);
 
   getIpValue() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
-    final String? stringValue = prefs.getString('addrIp');
+    final String stringValue = prefs.getString('addrIp') ?? "localhost";
     return stringValue;
   }
 
   getPort1Value() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
-    final int? intValue = prefs.getInt('port1');
+    final int intValue = prefs.getInt('port1') ?? 80;
     return intValue;
   }
 
   getPort2Value() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
-    final int? intValue = prefs.getInt('port2');
+    final int intValue = prefs.getInt('port2') ?? 8080;
     return intValue;
   }
 
   void setIp(String _addrIp) {
-    addrIp = _addrIp;
+    prefs.setString("addrIp", _addrIp);
   }
 
   void setPort1(String _port) {
     int a = int.parse(_port);
-    port1 = a;
+    prefs.setInt("port1", a);
   }
 
   void setPort2(String _port) {
     int a = int.parse(_port);
-    port2 = a;
+    prefs.setInt("port2", a);
   }
 
   Future<Socket?> socketConnect(BuildContext context) async {
     try {
+      String addrIp = await getIpValue();
+      int port1 = await getPort1Value();
       Socket socket = await Socket.connect(addrIp, port1);
       print(
           'Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
@@ -66,6 +61,8 @@ class ConnectConfig {
       return socket;
     } catch (e) {
       print(e);
+      String addrIp = await getIpValue();
+      int port1 = await getPort1Value();
       showAlertDialog(context, addrIp, port1);
       print('Can\'t connect to: ${addrIp}:${port1}');
       return null;

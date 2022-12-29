@@ -43,91 +43,95 @@ class SettingBody extends StatefulWidget {
 }
 
 class _SettingBody extends State<SettingBody> {
-  static var keyIpDesktop = 'key-ip-desktop';
-  static var keyPort1Desktop = 'key-port1-desktop';
-  static var keyPort2Desktop = 'key-port2-desktop';
-  static var keyConnexionDesktop = 'key-connexion-desktop';
-
+  var keyIpDesktop = 'key-ip-desktop';
+  var keyPort1Desktop = 'key-port1-desktop';
+  var keyPort2Desktop = 'key-port2-desktop';
+  var keyConnexionDesktop = 'key-connexion-desktop';
   @override
   Widget build(BuildContext context) {
+    widget.config.getIpValue;
+
     return ListView(
       padding: const EdgeInsets.all(8),
       children: <Widget>[
-        Container(
-          height: 600,
-          child: SettingsGroup(
-            title: 'Connection Settings',
-            children: <Widget>[
-              TextInputSettingsTile(
-                title: 'Ip address desktop',
-                settingKey: widget.config.addrIp,
-                initialValue: '192.161.1.', //Affichage VS valeur
-                borderColor: Colors.blueAccent,
-                errorColor: Colors.deepOrangeAccent,
-                onChange: (value) {
-                  setState(() {
-                    widget.config.setIp(value);
-                    widget.socket = widget.config.socketConnect(context);
-                  });
-                  keyIpDesktop = value;
-                  debugPrint('key-connexion-desktop: $keyIpDesktop');
-                },
-              ),
-              TextInputSettingsTile(
-                title: 'Port One desktop',
-                settingKey: widget.config.addrIp,
-                initialValue: '0000',
-                borderColor: Colors.blueAccent,
-                errorColor: Colors.deepOrangeAccent,
-                onChange: (value) {
-                  setState(() {
-                    widget.config.setPort1(value);
-                    widget.socket = widget.config.socketConnect(context);
-                  });
-                  keyPort1Desktop = value;
-                  debugPrint('key-connexion-desktop: $keyPort1Desktop');
-                },
-                validator: (port1) =>
-                    port1 != null ? null : 'Enter correct port',
-              ),
-              TextInputSettingsTile(
-                title: 'Port Two desktop',
-                settingKey: widget.config.addrIp,
-                initialValue: '0000',
-                borderColor: Colors.blueAccent,
-                errorColor: Colors.deepOrangeAccent,
-                onChange: (value) {
-                  setState(() {});
-                  keyPort2Desktop = value;
-                  debugPrint('key-port2-desktop: $keyPort2Desktop');
-                },
-                validator: (port2) =>
-                    port2 != null ? null : 'Enter correct port',
-              ),
-              SimpleDropDownSettingsTile(
-                title: 'Connexion with desktop',
-                settingKey: 'key-connexion-desktop',
-                values: <String>[
-                  'WIFI',
-                  'USB',
-                ],
-                selected: 'WIFI',
-                onChange: (value) {
-                  keyConnexionDesktop = value;
-                  debugPrint('key-connexion-desktop: $keyConnexionDesktop');
-                },
-              ),
-            ],
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.all(8.0),
-          child: ButtonTheme(
-            child: ElevatedButton(
-              child: Text("Info"),
-              onPressed: () async {},
+        SettingsGroup(
+          title: 'Connection Settings',
+          children: <Widget>[
+            TextInputSettingsTile(
+              title: 'Ip address desktop',
+              settingKey: keyIpDesktop,
+              initialValue: 'localhost',
+              borderColor: Colors.blueAccent,
+              errorColor: Colors.deepOrangeAccent,
+              onChange: (value) {
+                setState(() {
+                  widget.config.setIp(value);
+                  widget.socket = widget.config.socketConnect(context);
+                });
+                keyIpDesktop = value;
+                debugPrint('key-ip-desktop: $keyIpDesktop');
+              },
             ),
-          ),
+            TextInputSettingsTile(
+              title: 'Port One desktop',
+              settingKey: keyPort1Desktop,
+              initialValue: '80',
+              borderColor: Colors.blueAccent,
+              errorColor: Colors.deepOrangeAccent,
+              onChange: (value) {
+                setState(() {
+                  widget.config.setPort1(value);
+                  widget.socket = widget.config.socketConnect(context);
+                });
+                keyPort1Desktop = value;
+                debugPrint('key-port2-desktop: $keyPort1Desktop');
+              },
+              validator: (port1) => port1 != null ? null : 'Enter correct port',
+            ),
+            TextInputSettingsTile(
+              title: 'Port Two desktop',
+              settingKey: keyPort2Desktop,
+              initialValue: '8080',
+              borderColor: Colors.blueAccent,
+              errorColor: Colors.deepOrangeAccent,
+              onChange: (value) {
+                setState(() {});
+                keyPort2Desktop = value;
+                debugPrint('key-port2-desktop: $keyPort2Desktop');
+              },
+              validator: (port2) => port2 != null ? null : 'Enter correct port',
+            ),
+            SimpleDropDownSettingsTile(
+              title: 'Connexion with desktop',
+              settingKey: 'key-connexion-desktop',
+              values: <String>[
+                'WIFI',
+                'USB',
+              ],
+              selected: 'WIFI',
+              onChange: (value) {
+                keyConnexionDesktop = value;
+                debugPrint('key-connexion-desktop: $keyConnexionDesktop');
+              },
+            ),
+          ],
+        ),
+        SettingsGroup(
+          title: 'Infomation',
+          children: [
+            SimpleSettingsTile(
+              title: 'Dev App Mobil:',
+              subtitle: 'Benjamin Lasseye, Clément Dubois',
+            ),
+            SimpleSettingsTile(
+              title: 'Dev App Windows',
+              subtitle: 'Maxime Maitrot, Corentin Gasnier, Lucas Marie',
+            ),
+            SimpleSettingsTile(
+              title: 'Version :',
+              subtitle: 'BETA',
+            ),
+          ],
         ),
       ],
     );

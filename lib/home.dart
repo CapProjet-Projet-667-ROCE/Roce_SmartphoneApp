@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:fullscreen/fullscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:roce_smartphoneapp/main.dart';
 import 'package:roce_smartphoneapp/parser/slider.dart';
 import 'package:roce_smartphoneapp/parser/square.dart';
 import 'package:roce_smartphoneapp/setting.dart';
@@ -50,11 +49,11 @@ int colorBackground8 = 0xFF031319;
 String textOfSquare8 = "Volume -";
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
-
+  SharedPreferences prefs;
+  HomePage(this.prefs);
   @override
   Widget build(BuildContext context) {
-    ConnectConfig config = ConnectConfig("google.com", 80, 8000);
+    ConnectConfig config = ConnectConfig(prefs);
     Future<Socket?> socket = config.socketConnect(context);
     return Scaffold(
       appBar: HomeAppBar(socket, config),
@@ -67,6 +66,7 @@ class HomePage extends StatelessWidget {
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
   ConnectConfig config;
   Future<Socket?> socket;
+
   HomeAppBar(this.socket, this.config);
 
   Size get preferredSize => new Size.fromHeight(50);
