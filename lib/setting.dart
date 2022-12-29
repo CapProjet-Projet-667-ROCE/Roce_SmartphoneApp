@@ -1,95 +1,25 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:dart_ipify/dart_ipify.dart';
 import 'package:flutter_settings_screens/flutter_settings_screens.dart';
 
+import 'package:roce_smartphoneapp/connexion.dart';
+
 class SettingPage extends StatelessWidget {
-  const SettingPage({key});
+  ConnectConfig config;
+  Future<Socket?> socket;
+  SettingPage(this.socket, this.config);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SettingAppBar(),
-      body: SettingBody(),
-    );
-  }
-}
-
-class SettingBody extends StatefulWidget {
-  @override
-  _SettingBody createState() => _SettingBody();
-}
-
-class _SettingBody extends State<SettingBody> {
-  Future<String> getIpAddress() async {
-    final ipv4 = await Ipify.ipv4();
-    return ipv4;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          Container(
-            height: 300,
-            child: SettingsGroup(
-              title: 'Connection Settings',
-              children: <Widget>[
-                Container(
-                    child: FutureBuilder(
-                        future: getIpAddress(),
-                        builder:
-                            (BuildContext context, AsyncSnapshot<String> text) {
-                          if (!text.hasData) {
-                            return Container();
-                          } else {
-                            final String? addrIp = text.data;
-                            return Text("Adresse IP : $addrIp");
-                          }
-                        })),
-                TextInputSettingsTile(
-                  title: 'Ip address desktop',
-                  settingKey: 'key-ip-desktop',
-                  initialValue: '192.161.1.', //Affichage VS valeur
-                  borderColor: Colors.blueAccent,
-                  errorColor: Colors.deepOrangeAccent,
-                ),
-                TextInputSettingsTile(
-                  title: 'Port One desktop',
-                  settingKey: 'key-port1-desktop',
-                  initialValue: '0000',
-                  borderColor: Colors.blueAccent,
-                  errorColor: Colors.deepOrangeAccent,
-                ),
-                TextInputSettingsTile(
-                  title: 'Port Two desktop',
-                  settingKey: 'key-port1-desktop',
-                  initialValue: '0000',
-                  borderColor: Colors.blueAccent,
-                  errorColor: Colors.deepOrangeAccent,
-                ),
-                SimpleDropDownSettingsTile(
-                  title: 'Connection with desktop',
-                  settingKey: 'key-connection-desktop',
-                  values: <String>[
-                    'WIFI',
-                    'USB',
-                  ],
-                  selected: 'WIFI',
-                  onChange: (value) {
-                    debugPrint('key-connection-desktop: $value');
-                  },
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+      body: SettingBody(socket, config),
     );
   }
 }
 
 class SettingAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const SettingAppBar({key});
+  SettingAppBar({Key? key}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
@@ -100,6 +30,110 @@ class SettingAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: const Color(0xFF031319),
       title: const Text('Settings'),
       centerTitle: true,
+    );
+  }
+}
+
+class SettingBody extends StatefulWidget {
+  ConnectConfig config;
+  Future<Socket?> socket;
+  SettingBody(this.socket, this.config);
+  @override
+  _SettingBody createState() => _SettingBody();
+}
+
+class _SettingBody extends State<SettingBody> {
+  var keyIpDesktop = 'key-ip-desktop';
+  var keyPort1Desktop = 'key-port1-desktop';
+  var keyPort2Desktop = 'key-port2-desktop';
+  var keyConnexionDesktop = 'key-connexion-desktop';
+  @override
+  Widget build(BuildContext context) {
+    widget.config.getIpValue;
+
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: <Widget>[
+        SettingsGroup(
+          title: 'Connection Settings',
+          children: <Widget>[
+            TextInputSettingsTile(
+              title: 'Ip address desktop',
+              settingKey: keyIpDesktop,
+              initialValue: 'localhost',
+              borderColor: Colors.blueAccent,
+              errorColor: Colors.deepOrangeAccent,
+              onChange: (value) {
+                setState(() {
+                  widget.config.setIp(value);
+                  widget.socket = widget.config.socketConnect(context);
+                });
+                keyIpDesktop = value;
+                debugPrint('key-ip-desktop: $keyIpDesktop');
+              },
+            ),
+            TextInputSettingsTile(
+              title: 'Port One desktop',
+              settingKey: keyPort1Desktop,
+              initialValue: '80',
+              borderColor: Colors.blueAccent,
+              errorColor: Colors.deepOrangeAccent,
+              onChange: (value) {
+                setState(() {
+                  widget.config.setPort1(value);
+                  widget.socket = widget.config.socketConnect(context);
+                });
+                keyPort1Desktop = value;
+                debugPrint('key-port2-desktop: $keyPort1Desktop');
+              },
+              validator: (port1) => port1 != null ? null : 'Enter correct port',
+            ),
+            TextInputSettingsTile(
+              title: 'Port Two desktop',
+              settingKey: keyPort2Desktop,
+              initialValue: '8080',
+              borderColor: Colors.blueAccent,
+              errorColor: Colors.deepOrangeAccent,
+              onChange: (value) {
+                setState(() {});
+                keyPort2Desktop = value;
+                debugPrint('key-port2-desktop: $keyPort2Desktop');
+              },
+              validator: (port2) => port2 != null ? null : 'Enter correct port',
+            ),
+            SimpleDropDownSettingsTile(
+              title: 'Connexion with desktop',
+              settingKey: 'key-connexion-desktop',
+              values: <String>[
+                'WIFI',
+                'USB',
+              ],
+              selected: 'WIFI',
+              onChange: (value) {
+                keyConnexionDesktop = value;
+                debugPrint('key-connexion-desktop: $keyConnexionDesktop');
+              },
+            ),
+          ],
+        ),
+        SettingsGroup(
+          title: 'Infomation',
+          children: [
+            SimpleSettingsTile(
+              title: 'Dev App Mobil:',
+              subtitle: 'Benjamin Lasseye, Clément Dubois',
+            ),
+            SimpleSettingsTile(
+              title: 'Dev App Windows',
+              subtitle: 'Maxime Maitrot, Corentin Gasnier, Lucas Marie',
+            ),
+            SimpleSettingsTile(
+              title: 'Version :',
+              subtitle: 'BETA',
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
