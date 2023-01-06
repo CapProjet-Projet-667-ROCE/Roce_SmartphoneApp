@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fullscreen/fullscreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:roce_smartphoneapp/parser/slider.dart';
-import 'package:roce_smartphoneapp/parser/square.dart';
+import 'package:roce_smartphoneapp/tools/slider.dart';
+import 'package:roce_smartphoneapp/tools/square.dart';
 import 'package:roce_smartphoneapp/setting.dart';
 import 'package:roce_smartphoneapp/connexion.dart';
 
