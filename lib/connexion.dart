@@ -19,14 +19,14 @@ class ConnectConfig {
   getPort1Value() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
-    final int intValue = prefs.getInt('port1') ?? 80;
+    final int intValue = prefs.getInt('port1') ?? 12137;
     return intValue;
   }
 
   getPort2Value() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     //Return String
-    final int intValue = prefs.getInt('port2') ?? 8080;
+    final int intValue = prefs.getInt('port2') ?? 12138;
     return intValue;
   }
 
