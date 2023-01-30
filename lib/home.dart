@@ -157,29 +157,12 @@ class _HomeBody extends State<HomeBody> {
                 Expanded(
                   flex: 5,
                   child: Square(
-                      widget.socket, '0', colorBackground1, textOfSquare1),
+                      widget.socket, 'b1', colorBackground1, textOfSquare1),
                 ),
                 Expanded(
                   flex: 5,
                   child: Square(
-                      widget.socket, '1', colorBackground2, textOfSquare2),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 5,
-                  child: Square(
-                      widget.socket, '2', colorBackground3, textOfSquare3),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Square(
-                      widget.socket, '3', colorBackground4, textOfSquare4),
+                      widget.socket, 'b2', colorBackground2, textOfSquare2),
                 ),
               ],
             ),
@@ -191,12 +174,12 @@ class _HomeBody extends State<HomeBody> {
                 Expanded(
                   flex: 5,
                   child: Square(
-                      widget.socket, '4', colorBackground5, textOfSquare5),
+                      widget.socket, 'b3', colorBackground3, textOfSquare3),
                 ),
                 Expanded(
                   flex: 5,
                   child: Square(
-                      widget.socket, '5', colorBackground6, textOfSquare6),
+                      widget.socket, 'b4', colorBackground4, textOfSquare4),
                 ),
               ],
             ),
@@ -208,12 +191,29 @@ class _HomeBody extends State<HomeBody> {
                 Expanded(
                   flex: 5,
                   child: Square(
-                      widget.socket, '6', colorBackground7, textOfSquare7),
+                      widget.socket, 'b5', colorBackground5, textOfSquare5),
                 ),
                 Expanded(
                   flex: 5,
                   child: Square(
-                      widget.socket, '7', colorBackground8, textOfSquare8),
+                      widget.socket, 'b6', colorBackground6, textOfSquare6),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 5,
+                  child: Square(
+                      widget.socket, 'b7', colorBackground7, textOfSquare7),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Square(
+                      widget.socket, 'b8', colorBackground8, textOfSquare8),
                 ),
               ],
             ),
@@ -237,8 +237,12 @@ class _HomeBody extends State<HomeBody> {
                       ),
                       Expanded(
                         flex: 5,
-                        child: SoundSlider(widget.socket, '8', colorThumbColor1,
-                            colorInactiveColor1, colorActiveColor1),
+                        child: SoundSlider(
+                            widget.socket,
+                            'b9',
+                            colorThumbColor1,
+                            colorInactiveColor1,
+                            colorActiveColor1),
                       ),
                     ],
                   ),
@@ -258,8 +262,12 @@ class _HomeBody extends State<HomeBody> {
                       ),
                       Expanded(
                         flex: 5,
-                        child: SoundSlider(widget.socket, '9', colorThumbColor2,
-                            colorInactiveColor2, colorActiveColor2),
+                        child: SoundSlider(
+                            widget.socket,
+                            'b10',
+                            colorThumbColor2,
+                            colorInactiveColor2,
+                            colorActiveColor2),
                       ),
                     ],
                   ),

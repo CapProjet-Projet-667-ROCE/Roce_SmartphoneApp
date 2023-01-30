@@ -32,7 +32,7 @@ class _Square extends State<Square> {
             onPressed: () async {
               try {
                 Socket? mysocket = await widget.socket;
-                sendMessage(mysocket, widget.id + '\n');
+                sendMessage(mysocket, widget.id + ':\n');
                 debugPrint('id: ' + widget.id);
               } catch (e) {
                 print(e);

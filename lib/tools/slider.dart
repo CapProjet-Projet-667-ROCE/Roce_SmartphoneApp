@@ -28,15 +28,21 @@ class _SoundSlider extends State<SoundSlider> {
       inactiveColor: Color(widget.colorInactiveColor),
       activeColor: Color(widget.colorActiveColor),
       value: _value.toDouble(),
-      onChanged: (double newValue) {
-        setState(() async {
+      onChanged: (double newValue) async {
+        try {
           if (_value != newValue.round()) {
-            _value = newValue.round();
             Socket? mysocket = await widget.socket;
             sendMessage(mysocket, widget.id + ':' + _value.toString() + '\n');
             debugPrint('id: ' + widget.id + ' value: ' + _value.toString());
           }
-        });
+          setState(() {
+            if (_value != newValue.round()) {
+              _value = newValue.round();
+            }
+          });
+        } catch (e) {
+          print(e);
+        }
       },
     );
   }
