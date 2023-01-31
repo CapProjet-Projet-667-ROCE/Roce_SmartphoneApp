@@ -75,7 +75,7 @@ class _SettingBody extends State<SettingBody> {
             TextInputSettingsTile(
               title: 'Port One desktop',
               settingKey: keyPort1Desktop,
-              initialValue: '80',
+              initialValue: '12137',
               borderColor: Colors.blueAccent,
               errorColor: Colors.deepOrangeAccent,
               onChange: (value) {
@@ -91,7 +91,7 @@ class _SettingBody extends State<SettingBody> {
             TextInputSettingsTile(
               title: 'Port Two desktop',
               settingKey: keyPort2Desktop,
-              initialValue: '8080',
+              initialValue: '12138',
               borderColor: Colors.blueAccent,
               errorColor: Colors.deepOrangeAccent,
               onChange: (value) {
@@ -129,7 +129,7 @@ class _SettingBody extends State<SettingBody> {
             ),
             SimpleSettingsTile(
               title: 'Version :',
-              subtitle: 'BETA',
+              subtitle: 'ALPHA',
             ),
           ],
         ),

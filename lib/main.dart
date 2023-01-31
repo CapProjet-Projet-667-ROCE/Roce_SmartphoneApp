@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       home: HomePage(prefs),
     );
@@ -49,8 +50,8 @@ Future<SharedPreferences> sharedPrefInit() async {
     Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
     final SharedPreferences prefs = await _prefs;
     prefs.setString("addrIp", "localhost");
-    prefs.setInt("port1", 80);
-    prefs.setInt("port2", 8080);
+    prefs.setInt("port1", 12137);
+    prefs.setInt("port2", 12138);
     return prefs;
   }
 }
