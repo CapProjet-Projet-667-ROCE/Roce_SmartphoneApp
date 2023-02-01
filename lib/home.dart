@@ -30,16 +30,16 @@ String textOfSquare1 = "Preview";
 int colorBackground2 = 0xFF031319;
 String textOfSquare2 = "Next";
 //Square 3
-int colorBackground3 = 0xFF81b71a;
+int colorBackground3 = 0xFF031319;
 String textOfSquare3 = "Play/Pause";
 //Square 4
-int colorBackground4 = 0xFF2a86cf;
+int colorBackground4 = 0xFF031319;
 String textOfSquare4 = "Lock";
 //Square 5
 int colorBackground5 = 0xFF031319;
-String textOfSquare5 = "Win+G";
+String textOfSquare5 = "Launch";
 //Square 6
-int colorBackground6 = 0x88031319;
+int colorBackground6 = 0xFF031319;
 String textOfSquare6 = "Muet/Demuet";
 //Square 7
 int colorBackground7 = 0xFF031319;
@@ -231,7 +231,7 @@ class _HomeBody extends State<HomeBody> {
                     children: <Widget>[
                       RotatedBox(
                         child: Icon(
-                          Icons.mic,
+                          Icons.volume_up,
                         ),
                         quarterTurns: _rotateValue,
                       ),
@@ -256,7 +256,7 @@ class _HomeBody extends State<HomeBody> {
                     children: <Widget>[
                       RotatedBox(
                         child: Icon(
-                          Icons.volume_up,
+                          Icons.mic,
                         ),
                         quarterTurns: _rotateValue,
                       ),
