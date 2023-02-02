@@ -48,9 +48,9 @@ class ConnectConfig {
     try {
       String addrIp = await getIpValue();
       int port1 = await getPort1Value();
+      int port2 = await getPort2Value();
       Socket socket = await Socket.connect(addrIp, port1);
-      print(
-          'Connected to: ${socket.remoteAddress.address}:${socket.remotePort}');
+      print('Connected to: ${addrIp}:${port1}');
       Fluttertoast.showToast(
           msg: "  Connected to : ${addrIp}:${port1}",
           toastLength: Toast.LENGTH_SHORT,
