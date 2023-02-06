@@ -25,7 +25,7 @@ int colorInactiveColor2 = 0x88031319;
 int colorActiveColor2 = 0xFF031319;
 //Square 1
 int colorBackground1 = 0xFF031319;
-String textOfSquare1 = "Preview";
+String textOfSquare1 = "Previous";
 //Square 2
 int colorBackground2 = 0xFF031319;
 String textOfSquare2 = "Next";

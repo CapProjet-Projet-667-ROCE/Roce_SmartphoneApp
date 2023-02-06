@@ -125,7 +125,7 @@ class _SettingBody extends State<SettingBody> {
             ),
             SimpleSettingsTile(
               title: 'Dev App Windows',
-              subtitle: 'Maxime Maitrot, Corentin Gasnier, Lucas Marie',
+              subtitle: 'Maxime Maitrot, Corentin Gasnier, Lucas Mari',
             ),
             SimpleSettingsTile(
               title: 'Version :',
